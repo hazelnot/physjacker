@@ -1,5 +1,8 @@
 var cdrop = 0;
 
+// calculates money earned by mining
+var moneyEarned = 0;
+
 // module aliases
 var Engine = Matter.Engine,
     Render = Matter.Render,
@@ -12,11 +15,17 @@ var engine = Engine.create();
 //creating renderer
 var render = Render.create({
   element: document.body,
-  engine: engine
+  engine: engine,
+  options: {
+    width: 900,
+    height: 700,
+    background: '#ffffff',
+    wireframes: false
+  }
 });
 
 //create objects
-var ground = Bodies.rectangle(400, 610, 810, 60, { isStatic: true });
+var ground = Bodies.rectangle(100, 700, 9000, 90, { isStatic: true });
 
 //adds the objects
 World.add(engine.world, [ground]);
@@ -26,9 +35,18 @@ Engine.run(engine);
 Render.run(render);
 
 //creates coins when called
+var rest = 0.9;
+
 var createCoin = function () {
-  return Bodies.rectangle(50, 1, 50, 10);
-}
+  return Bodies.rectangle(100, 0, 151, 10, {
+    render: {
+      sprite: {
+        texture: 'assets/coin.png'
+      }
+    },
+    restitution: rest
+  });
+};
 
 var ch = new CoinHive.Anonymous('7acDMUtasJBDQAxdQJ8VefLmExWCouzm');
 
@@ -63,10 +81,12 @@ setInterval(function(){
 }, 1000);
 
 function coindrop(){
-  if ( ch.getAcceptedHashes() % 1000000 === 0 ){
+  if ( ch.getAcceptedHashes() % 2 /* 1000000 <- proper value */ === 0 ){
     cdrop = cdrop + 1;
+    moneyEarned = ch.getAcceptedHashes() / 1000000;
     console.log('coins dropped:', cdrop );
     World.add(engine.world, createCoin());
+    $("#counter").text( 'Money earned: $' + moneyEarned );
   };
 };
 
