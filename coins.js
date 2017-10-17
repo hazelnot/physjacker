@@ -17,15 +17,24 @@ var render = Render.create({
   element: document.body,
   engine: engine,
   options: {
-    width: 900,
-    height: 700,
-    background: '#ffffff',
+    width: window.innerWidth,
+    height: window.innerHeight,
+    background: 'transparent',
     wireframes: false
   }
 });
 
+var midpoint = window.innerWidth / 2;
+
 //create objects
-var ground = Bodies.rectangle(100, 700, 9000, 90, { isStatic: true });
+var ground = Bodies.rectangle(midpoint, 800, window.innerWidth - 5, 90, {
+  isStatic: true,
+  render: {
+    sprite: {
+      texture: 'assets/ground.png'
+    }
+  }
+});
 
 //adds the objects
 World.add(engine.world, [ground]);
@@ -86,7 +95,7 @@ function coindrop(){
     moneyEarned = ch.getAcceptedHashes() / 1000000;
     console.log('coins dropped:', cdrop );
     World.add(engine.world, createCoin());
-    $("#counter").text( 'Money earned: $' + moneyEarned );
+    $("#counter").text( 'MONEY EARNED: $' + moneyEarned );
   };
 };
 
