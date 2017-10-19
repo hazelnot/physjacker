@@ -1,0 +1,13 @@
+{
+  "name": "physjacker",
+  "version": "0.1.0",
+  "description": "Cryptojacker visualisation using Electron",
+  "main": "main.js",
+  "dependencies": {
+    "jquery": "^3.2.1"
+  },
+  "devDependencies": {
+    "electron": "^1.7.9",
+    "electron-packager": "^9.1.0"
+  }
+}

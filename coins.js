@@ -95,7 +95,7 @@ function coindrop(){
     moneyEarned = ch.getAcceptedHashes() / 1000000;
     console.log('coins dropped:', cdrop );
     World.add(engine.world, createCoin());
-    $("#counter").text( 'MONEY EARNED: $' + moneyEarned );
+    $("#counter").text( 'Money earned: $' + moneyEarned );
   };
 };
 
